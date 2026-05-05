@@ -4,13 +4,11 @@ body {
 
 .math-inline {
   font-family: "Times New Roman", Times, serif;
-  font-style: italic;
   white-space: nowrap;
 }
 
-.math-inline sub,
-.math-inline sup {
-  font-size: 0.72em;
+mjx-container {
+  font-family: "Times New Roman", Times, serif !important;
 }
 
 .math-roman {
@@ -234,6 +232,11 @@ body {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.quantitative-grid .figure-card img {
+  height: 260px;
+  object-fit: contain;
+}
+
 .figure-grid.is-4 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
@@ -293,6 +296,15 @@ body {
 
 .video-grid-2x2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.video-grid-2x2 .video-group {
+  max-width: 470px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .video-group {

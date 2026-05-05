@@ -16,13 +16,24 @@
   <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="./static/css/index.css?v=20260505">
+  <link rel="stylesheet" href="./static/css/index.css?v=20260507">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="icon" type="image/svg+xml" href="./static/images/favicon.svg" />
   <link rel="icon" type="image/png" href="./static/images/favicon.png" />
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+      },
+      output: {
+        font: 'mathjax-termes'
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml-nofont.js"></script>
 </head>
 <body>
 
@@ -55,7 +66,7 @@
             <span class="author-block">Hao Liu<sup>1</sup></span>,
             <span class="author-block"><a href="https://yupengyanguncc.github.io/">Yupeng Yang</a><sup>2</sup></span>,
             <span class="author-block"><a href="https://yanzezhang97.github.io/">Yanze Zhang</a><sup>1</sup></span>,
-            <span class="author-block">Yiwei Lyu<sup>3</sup></span>,
+            <span class="author-block"><a href="https://yiweilyu-tamu.github.io/homepage/">Yiwei Lyu</a><sup>3</sup></span>,
             <span class="author-block"><a href="https://www.cs.uic.edu/~wenhao/">Wenhao Luo</a><sup>1</sup></span>
           </div>
 
@@ -145,7 +156,7 @@
       </ol>
       <p class="reference-note">
         Core scheduling metric in the paper:
-        <span class="math-inline">w&#772;ij(t) = min_{&tau;&in;[t,t+T_w]} d_ij(&tau;)</span>.
+        <span class="math-inline">\( \bar{w}_{ij}(t) = \min_{\tau \in [t,\, t+T_w]} d_{ij}(\tau) \)</span>.
       </p>
     </div>
   </div>
@@ -163,7 +174,7 @@
           </p>
 
           <figure class="paper-figure">
-            <div class="figure-grid is-3">
+            <div class="figure-grid is-3 quantitative-grid">
               <div class="figure-card">
                 <img src="./figs/quantitative_avg_dev_compare.png" alt="Average trajectory deviation comparison" loading="lazy">
                 <p class="subfigure-caption">(a) Average trajectory deviation</p>
@@ -213,7 +224,7 @@
                   <source src="./videos/ptcbf_tp3.mp4" type="video/mp4">
                 </video>
               </div>
-              <p class="video-caption">(b) PT-CBF (T<sub>p</sub> = 3 s)</p>
+              <p class="video-caption">(b) PT-CBF (\(T_p = 3~\mathrm{s}\))</p>
             </div>
             <div class="video-group">
               <div class="video-panel">
@@ -221,7 +232,7 @@
                   <source src="./videos/ptcbf_tp15.mp4" type="video/mp4">
                 </video>
               </div>
-              <p class="video-caption">(c) PT-CBF (T<sub>p</sub> = 15 s)</p>
+              <p class="video-caption">(c) PT-CBF (\(T_p = 15~\mathrm{s}\))</p>
             </div>
             <div class="video-group">
               <div class="video-panel">
@@ -233,7 +244,7 @@
             </div>
           </div>
 
-          <h3 class="title is-4">Large-Scale Corridor Case (N = 8)</h3>
+          <h3 class="title is-4">Large-Scale Corridor Case (\(N = 8\))</h3>
           <p>
             Side-by-side comparisons for nominal planning and tree-selection baselines.
           </p>
