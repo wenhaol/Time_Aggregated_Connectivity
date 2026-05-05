@@ -25,7 +25,7 @@ function setInterpolationImage(i) {
 }
 
 function initializeComparisonVideos() {
-  var videos = Array.from(document.querySelectorAll('.comparison-video'));
+  var videos = Array.from(document.querySelectorAll('.paper-video, .comparison-video'));
   if (!videos.length) {
     return;
   }
@@ -79,6 +79,7 @@ function initializeComparisonVideos() {
 
   videos.forEach(function(video) {
     video.muted = true;
+    video.autoplay = true;
     video.playsInline = true;
     video.loop = false;
 
