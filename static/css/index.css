@@ -315,6 +315,16 @@ body {
   display: none !important;
 }
 
+.paper-video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid #d7dee7;
+  border-radius: 10px;
+  background: #000;
+  object-fit: cover;
+}
+
 .video-caption {
   margin-top: 0;
   color: #334155;

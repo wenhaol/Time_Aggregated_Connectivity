@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="Spatio-Temporal Reconnection for Multi-Robot Networks using Adaptive Prescribed-Time CBFs">
+        content="Time-Aggregated Connectivity Maintenance for Multi-Robot Networks">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Spatio-Temporal Reconnection for Multi-Robot Networks using Adaptive Prescribed-Time CBFs</title>
+  <title>Time-Aggregated Connectivity Maintenance for Multi-Robot Networks</title>
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
@@ -37,48 +37,59 @@
   <div class="navbar-menu">
     <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
       <a class="navbar-item" href="#abstract">Abstract</a>
+      <a class="navbar-item" href="#method">Method</a>
       <a class="navbar-item" href="#results">Results</a>
+      <a class="navbar-item" href="#videos">Videos</a>
       <a class="navbar-item" href="#bibtex">BibTeX</a>
     </div>
   </div>
 </nav>
-
 
 <section class="hero">
   <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Spatio-Temporal Reconnection for Multi-Robot Networks using Adaptive Prescribed-Time CBFs</h1>
+          <h1 class="title is-1 publication-title">Time-Aggregated Connectivity Maintenance for Multi-Robot Networks</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">Hao Liu<sup>1</sup></span>,
             <span class="author-block"><a href="https://yupengyanguncc.github.io/">Yupeng Yang</a><sup>2</sup></span>,
             <span class="author-block"><a href="https://yanzezhang97.github.io/">Yanze Zhang</a><sup>1</sup></span>,
+            <span class="author-block">Yiwei Lyu<sup>3</sup></span>,
             <span class="author-block"><a href="https://www.cs.uic.edu/~wenhao/">Wenhao Luo</a><sup>1</sup></span>
           </div>
 
           <div class="is-size-6 publication-authors">
             <span class="author-block"><sup>1</sup> Department of Computer Science, University of Illinois Chicago</span><br>
-            <span class="author-block"><sup>2</sup> Department of Computer Science, University of North Carolina at Charlotte</span>
+            <span class="author-block"><sup>2</sup> Department of Computer Science, University of North Carolina at Charlotte</span><br>
+            <span class="author-block"><sup>3</sup> Department of Computer Science and Engineering, Texas A&amp;M University</span>
           </div>
 
           <div class="column has-text-centered">
             <div class="publication-links">
               <span class="link-block">
-                <a href="#abstract" class="external-link button is-normal is-rounded is-dark">
+                <a href="./RSS_2026_Time_Aggregated_Connectivity_Maintenance.pdf" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
                   </span>
-                  <span>Abstract</span>
+                  <span>Paper PDF</span>
                 </a>
               </span>
               <span class="link-block">
-                <a href="./Spatio-temporal_poster.pdf" class="external-link button is-normal is-rounded is-dark">
+                <a href="#results" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
-                      <i class="fas fa-images"></i>
+                      <i class="fas fa-chart-line"></i>
                   </span>
-                  <span>Poster</span>
+                  <span>Results</span>
                   </a>
+              </span>
+              <span class="link-block">
+                <a href="#videos" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-video"></i>
+                  </span>
+                  <span>Supplementary Videos</span>
+                </a>
               </span>
             </div>
           </div>
@@ -87,7 +98,6 @@
     </div>
   </div>
 </section>
-
 
 <section class="section" id="abstract">
   <div class="container is-max-desktop">
@@ -96,16 +106,14 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            In multi-robot systems, maintaining persistent communication graph connectivity is often overly restrictive,
-            especially when robots have limited communication ranges but operate in large environments. Allowing robots to
-            temporarily disconnect and later reconnect can improve task efficiency while still ensuring timely information
-            sharing across the team. We propose an adaptive prescribed-time control barrier function (adaptive PT-CBF)
-            framework that enables robots to temporarily disconnect and re-enter communication range within an adjustable
-            and feasible prescribed time. We introduce a reconnection triggering mechanism that jointly considers task
-            execution and reconnection urgency, providing a principled way to decide when reconnection should occur.
-            Theoretical analysis establishes convergence to satisfying reconnection within a prescribed finite time.
-            Experimental results validate the performance of the adaptive PT-CBF with improved task efficiency and
-            reconnection behavior.
+            Connectivity maintenance is critical for networked robot teams to exchange information and coordinate actions,
+            yet enforcing persistent global connectivity can be unnecessarily restrictive when communication ranges are
+            limited and teams operate at scale. This work introduces a motion-coordination framework that maintains
+            <strong>time-aggregated connectivity</strong>, allowing temporary disconnections while ensuring information can still
+            flow across the team over each time window. The framework combines (1) a time-window aggregated minimum
+            spanning tree (TWA-MST) for selecting low-effort reconnection edges and (2) adaptive prescribed-time control
+            barrier functions (adaptive PT-CBF) for guaranteed and timely pairwise reconnection. Both analysis and
+            experiments show improved task efficiency with reliable connectivity recovery.
           </p>
         </div>
       </div>
@@ -113,135 +121,173 @@
   </div>
 </section>
 
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Method Overview</h2>
+    <div class="content">
+      <p>
+        The approach is implemented as a coordination layer on top of robots' nominal trajectories. It intervenes only when
+        reconnection is needed, so robots can follow their task plans with minimum additional effort.
+      </p>
+      <ol>
+        <li>
+          <strong>TWA-MST scheduler:</strong> for each candidate robot pair, aggregate predicted edge cost over a finite window,
+          then choose a sparse set of reconnection edges with low total effort.
+        </li>
+        <li>
+          <strong>Adaptive PT-CBF controller:</strong> once an edge is triggered, adapt the prescribed-time barrier parameters online
+          so reconnection remains feasible and timely while reducing unnecessary control deviation.
+        </li>
+        <li>
+          <strong>Dual-layer communication model:</strong> long-range links preserve coordination exchange, while short-range links
+          are re-established intermittently to guarantee time-aggregated connectivity.
+        </li>
+      </ol>
+      <p class="reference-note">
+        Core scheduling metric in the paper:
+        <span class="math-inline">w&#772;ij(t) = min_{&tau;&in;[t,t+T_w]} d_ij(&tau;)</span>.
+      </p>
+    </div>
+  </div>
+</section>
 
 <section class="section" id="results">
   <div class="container is-max-widescreen">
     <div class="columns is-centered">
       <div class="column is-full">
-        <h2 class="title is-3 has-text-centered">Results</h2>
+        <h2 class="title is-3 has-text-centered">Results Snapshot</h2>
         <div class="content">
-          <h3 class="title is-4">Two-Robot Case</h3>
           <p>
-            We compare Adaptive PT-CBF against FT-CBF and PT-CBF under the same temporal triggering schedule. Adaptive
-            PT-CBF reconnects earlier without requiring a manually tuned prescribed time, while FT-CBF slows near the
-            communication boundary and PT-CBF is highly sensitive to the chosen value of
-            <span class="math-inline">T<sub><span class="math-roman">p</span></sub></span>.
+            In a cluttered indoor simulation (workspace 32&times;54 m, N = 8 robots), the method improves task efficiency while
+            preserving communication objectives. Compared with PT-CBF, FT-CBF, MCCST, TSMST, and random spanning-tree
+            baselines, the proposed framework reduces additional travel/control effort and maintains robust reconnection
+            behavior.
           </p>
-          <figure class="paper-figure paper-figure-snapshots">
-            <div class="figure-grid is-3">
-              <div class="figure-card">
-                <img src="./figs/adaptivePTCBF_t0.png" alt="Two-robot snapshot at t equals 0 seconds under Adaptive PT-CBF before reconnection begins." loading="lazy">
-                <p class="subfigure-caption">(a) Adaptive PT-CBF, <span class="math-inline">t = 0<span class="math-roman">s</span></span></p>
-              </div>
-              <div class="figure-card">
-                <img src="./figs/adaptivePTCBF_t=6.8s.png" alt="Two-robot snapshot at t equals 6.81 seconds under Adaptive PT-CBF as the robots reconnect." loading="lazy">
-                <p class="subfigure-caption">(b) Adaptive PT-CBF, <span class="math-inline">t = 6.81<span class="math-roman">s</span></span></p>
-              </div>
-              <div class="figure-card">
-                <img src="./figs/adaptivePTCBF_t=15.jpg" alt="Two-robot snapshot at t equals 15 seconds under Adaptive PT-CBF after reconnection has been achieved." loading="lazy">
-                <p class="subfigure-caption">(c) Adaptive PT-CBF, <span class="math-inline">t = 15<span class="math-roman">s</span></span></p>
-              </div>
-              <div class="figure-card">
-                <img src="./figs/FTCBF_t=15.png" alt="Two-robot snapshot at t equals 15 seconds under FT-CBF showing slower convergence." loading="lazy">
-                <p class="subfigure-caption">(d) FT-CBF, <span class="math-inline">t = 15<span class="math-roman">s</span></span></p>
-              </div>
-              <div class="figure-card">
-                <img src="./figs/PTCBF_Tp=0.5.png" alt="Two-robot snapshot at t equals 15 seconds under PT-CBF with prescribed time 0.5 seconds, showing abrupt behavior." loading="lazy">
-                <p class="subfigure-caption">(e) PT-CBF (<span class="math-inline">T<sub><span class="math-roman">p</span></sub> = 0.5<span class="math-roman">s</span></span>), <span class="math-inline">t = 15<span class="math-roman">s</span></span></p>
-              </div>
-              <div class="figure-card">
-                <img src="./figs/PTCBF_Tp=15.png" alt="Two-robot snapshot at t equals 15 seconds under PT-CBF with prescribed time 15 seconds, showing delayed reconnection." loading="lazy">
-                <p class="subfigure-caption">(f) PT-CBF (<span class="math-inline">T<sub><span class="math-roman">p</span></sub> = 15<span class="math-roman">s</span></span>), <span class="math-inline">t = 15<span class="math-roman">s</span></span></p>
-              </div>
-            </div>
-            <figcaption>Snapshots comparing reconnection performance for Adaptive PT-CBF, FT-CBF, and PT-CBF.</figcaption>
-            <p class="figure-description">
-              Adaptive PT-CBF reconnects the robots by 6.81 seconds and maintains smooth motion through the remainder of
-              the run. FT-CBF remains conservative near the boundary, while fixed PT-CBF settings can be either too
-              aggressive to be feasible or too slow to react.
-            </p>
-          </figure>
 
           <figure class="paper-figure">
-            <div class="figure-grid is-4">
+            <div class="figure-grid is-3">
               <div class="figure-card">
-                <img src="./figs/compare_edge_weight_python.png" alt="Plot comparing spatio-temporal edge weights over time for Adaptive PT-CBF, FT-CBF, and PT-CBF." loading="lazy">
-                <p class="subfigure-caption">(a) Spatio-Temporal weight</p>
+                <img src="./figs/mapf_snapshot.png" alt="MAPF nominal plan snapshot" loading="lazy">
+                <p class="subfigure-caption">(a) MAPF nominal plan</p>
               </div>
               <div class="figure-card">
-                <img src="./figs/compare_hij_python.png" alt="Plot of communication-barrier values R sub c squared minus D sub i comma j squared for three methods." loading="lazy">
-                <p class="subfigure-caption">(b) <span class="math-inline">R<sub><span class="math-roman">c</span></sub><sup>2</sup> - D<sub>i,j</sub><sup>2</sup></span></p>
+                <img src="./figs/mccst_snapshot.png" alt="MCCST baseline snapshot" loading="lazy">
+                <p class="subfigure-caption">(b) MCCST (persistent connectivity)</p>
               </div>
               <div class="figure-card">
-                <img src="./figs/compare_interrobot_distance_python.png" alt="Plot of inter-robot distance over time relative to the communication threshold." loading="lazy">
-                <p class="subfigure-caption">(c) Inter-robot distance</p>
+                <img src="./figs/ours_twa_mst_snapshot.png" alt="Our TWA-MST snapshot" loading="lazy">
+                <p class="subfigure-caption">(c) Ours (TWA-MST + adaptive PT-CBF)</p>
               </div>
               <div class="figure-card">
-                <img src="./figs/compare_velocity_python.png" alt="Plot of average robot speed over time for Adaptive PT-CBF, FT-CBF, and PT-CBF." loading="lazy">
-                <p class="subfigure-caption">(d) Average speed</p>
+                <img src="./figs/random_snapshot.png" alt="Random spanning-tree baseline snapshot" loading="lazy">
+                <p class="subfigure-caption">(d) Random spanning-tree baseline</p>
+              </div>
+              <div class="figure-card">
+                <img src="./figs/tsmst_snapshot.png" alt="TSMST baseline snapshot" loading="lazy">
+                <p class="subfigure-caption">(e) TSMST baseline</p>
               </div>
             </div>
             <figcaption>
-              Comparison of the reconnection process under Adaptive PT-CBF, FT-CBF, and PT-CBF. The plots show the
-              spatio-temporal weight, communication-barrier value, inter-robot distance, and average speed.
+              Qualitative comparison in corridor-map experiments. Our method keeps coordinated progress while enforcing
+              scheduled reconnections.
             </figcaption>
-            <p class="figure-description">
-              All methods share the same trigger-weight schedule for a fair comparison, but Adaptive PT-CBF reaches the
-              communication boundary earlier.
-            </p>
           </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-          <h3 id="videos" class="title is-4 section-anchor">Multi-Robot Case</h3>
+<section class="section" id="videos">
+  <div class="container is-max-widescreen">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h2 class="title is-3 has-text-centered">Supplementary Videos</h2>
+        <div class="content">
+          <h3 class="title is-4">Two-Robot Reconnection Comparison</h3>
           <p>
-            In CoppeliaSim, five Khepera robots patrol separate regions while Robot 1 must reconnect with Robots 2--5 at
-            least once within each 30-second window. The videos below highlight the behavioral differences among our
-            method, <a href="https://ieeexplore.ieee.org/abstract/document/9197429">MCCST</a>, and the original task. Here,
-            MCCST is a persistent-connectivity baseline: it enforces persistent global connectivity at every instant,
-            unlike our method, which allows temporary disconnection within each reconnection window.
-          </p>
-          <p>
-            Video comparisons for the multi-robot patrol task. The top row shows the physical-platform videos and the
-            bottom row shows the corresponding simulation videos.
+            Same trigger schedule with different controllers. Adaptive PT-CBF reconnects reliably with less manual
+            prescribed-time tuning.
           </p>
           <div class="video-grid">
             <div class="video-group">
               <div class="video-panel">
-                <video class="comparison-video" autoplay muted playsinline preload="auto">
-                  <source src="./videos/original.mp4?v=20260315" type="video/mp4">
+                <video class="paper-video" controls playsinline preload="metadata">
+                  <source src="./videos/adaptive_ptcbf.mp4" type="video/mp4">
                 </video>
               </div>
-              <div class="video-panel">
-                <video class="comparison-video" autoplay muted playsinline preload="auto">
-                  <source src="./videos/original_sim.mp4?v=20260315" type="video/mp4">
-                </video>
-              </div>
-              <p class="video-caption">(a) Original Task</p>
+              <p class="video-caption">(a) Adaptive PT-CBF</p>
             </div>
             <div class="video-group">
               <div class="video-panel">
-                <video class="comparison-video" autoplay muted playsinline preload="auto">
-                  <source src="./videos/ours.mp4?v=20260315" type="video/mp4">
+                <video class="paper-video" controls playsinline preload="metadata">
+                  <source src="./videos/ptcbf_tp3.mp4" type="video/mp4">
                 </video>
               </div>
-              <div class="video-panel">
-                <video class="comparison-video" autoplay muted playsinline preload="auto">
-                  <source src="./videos/ours_sim.mp4?v=20260315" type="video/mp4">
-                </video>
-              </div>
-              <p class="video-caption">(b) Our Adaptive PT-CBF</p>
+              <p class="video-caption">(b) PT-CBF (T<sub>p</sub> = 3 s)</p>
             </div>
             <div class="video-group">
               <div class="video-panel">
-                <video class="comparison-video" autoplay muted playsinline preload="auto">
-                  <source src="./videos/MCCST.mp4?v=20260315" type="video/mp4">
+                <video class="paper-video" controls playsinline preload="metadata">
+                  <source src="./videos/ptcbf_tp15.mp4" type="video/mp4">
                 </video>
               </div>
+              <p class="video-caption">(c) PT-CBF (T<sub>p</sub> = 15 s)</p>
+            </div>
+            <div class="video-group">
               <div class="video-panel">
-                <video class="comparison-video" autoplay muted playsinline preload="auto">
-                  <source src="./videos/MCCST_sim.mp4?v=20260315" type="video/mp4">
+                <video class="paper-video" controls playsinline preload="metadata">
+                  <source src="./videos/ftcbf.mp4" type="video/mp4">
                 </video>
               </div>
-              <p class="video-caption">(c) MCCST (Persistent Connectivity)</p>
+              <p class="video-caption">(d) FT-CBF</p>
+            </div>
+          </div>
+
+          <h3 class="title is-4">Large-Scale Corridor Case (N = 8)</h3>
+          <p>
+            Side-by-side comparisons for nominal planning and tree-selection baselines.
+          </p>
+          <div class="video-grid">
+            <div class="video-group">
+              <div class="video-panel">
+                <video class="paper-video" controls playsinline preload="metadata">
+                  <source src="./videos/mapf_actual.mp4" type="video/mp4">
+                </video>
+              </div>
+              <p class="video-caption">(a) MAPF nominal plan</p>
+            </div>
+            <div class="video-group">
+              <div class="video-panel">
+                <video class="paper-video" controls playsinline preload="metadata">
+                  <source src="./videos/mccst_actual.mp4" type="video/mp4">
+                </video>
+              </div>
+              <p class="video-caption">(b) MCCST</p>
+            </div>
+            <div class="video-group">
+              <div class="video-panel">
+                <video class="paper-video" controls playsinline preload="metadata">
+                  <source src="./videos/ours_twa_mst_actual.mp4" type="video/mp4">
+                </video>
+              </div>
+              <p class="video-caption">(c) Ours (TWA-MST)</p>
+            </div>
+            <div class="video-group">
+              <div class="video-panel">
+                <video class="paper-video" controls playsinline preload="metadata">
+                  <source src="./videos/random_actual.mp4" type="video/mp4">
+                </video>
+              </div>
+              <p class="video-caption">(d) Random spanning tree</p>
+            </div>
+            <div class="video-group">
+              <div class="video-panel">
+                <video class="paper-video" controls playsinline preload="metadata">
+                  <source src="./videos/tsmst_actual.mp4" type="video/mp4">
+                </video>
+              </div>
+              <p class="video-caption">(e) TSMST</p>
             </div>
           </div>
         </div>
@@ -250,28 +296,27 @@
   </div>
 </section>
 
-
 <section class="section" id="bibtex">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code></code></pre>
+    <pre><code>@inproceedings{liu2026timeaggregated,
+  title={Time-Aggregated Connectivity Maintenance for Multi-Robot Networks},
+  author={Liu, Hao and Yang, Yupeng and Zhang, Yanze and Lyu, Yiwei and Luo, Wenhao},
+  booktitle={Robotics: Science and Systems (RSS)},
+  year={2026}
+}</code></pre>
   </div>
 </section>
 
-
 <footer class="footer">
   <div class="container">
-    <div class="content has-text-centered">
-    </div>
     <div class="columns is-centered">
       <div class="column is-8">
         <div class="content">
           <p>
-            This website is licensed under a <a rel="license"
-                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-            This webpage template is based on the template used by <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
-            We sincerely thank <a href="https://keunhong.com/">Keunhong Park</a> for developing and open-sourcing this template.
+            This website is licensed under a
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+            Template based on the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template.
           </p>
         </div>
       </div>
@@ -281,7 +326,7 @@
 
 <script defer src="./static/js/bulma-carousel.min.js"></script>
 <script defer src="./static/js/bulma-slider.min.js"></script>
-<script defer src="./static/js/index.js?v=20260316"></script>
+<script defer src="./static/js/index.js?v=20260504"></script>
 
 </body>
 </html>
