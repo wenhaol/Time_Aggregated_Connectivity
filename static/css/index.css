@@ -291,6 +291,10 @@ body {
   align-items: start;
 }
 
+.video-grid-2x2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .video-group {
   display: flex;
   flex-direction: column;
