@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/index.css?v=20260505">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="icon" type="image/svg+xml" href="./static/images/favicon.svg" />
   <link rel="icon" type="image/png" href="./static/images/favicon.png" />
@@ -155,41 +155,30 @@
   <div class="container is-max-widescreen">
     <div class="columns is-centered">
       <div class="column is-full">
-        <h2 class="title is-3 has-text-centered">Results Snapshot</h2>
+        <h2 class="title is-3 has-text-centered">Quantitative Results</h2>
         <div class="content">
           <p>
-            In a cluttered indoor simulation (workspace 32&times;54 m, N = 8 robots), the method improves task efficiency while
-            preserving communication objectives. Compared with PT-CBF, FT-CBF, MCCST, TSMST, and random spanning-tree
-            baselines, the proposed framework reduces additional travel/control effort and maintains robust reconnection
-            behavior.
+            Quantitative comparisons across team sizes using three metrics: average trajectory deviation, total distance
+            variation, and average iteration time.
           </p>
 
           <figure class="paper-figure">
             <div class="figure-grid is-3">
               <div class="figure-card">
-                <img src="./figs/mapf_snapshot.png" alt="MAPF nominal plan snapshot" loading="lazy">
-                <p class="subfigure-caption">(a) MAPF nominal plan</p>
+                <img src="./figs/quantitative_avg_dev_compare.png" alt="Average trajectory deviation comparison" loading="lazy">
+                <p class="subfigure-caption">(a) Average trajectory deviation</p>
               </div>
               <div class="figure-card">
-                <img src="./figs/mccst_snapshot.png" alt="MCCST baseline snapshot" loading="lazy">
-                <p class="subfigure-caption">(b) MCCST (persistent connectivity)</p>
+                <img src="./figs/quantitative_distance_delta_compare.png" alt="Distance variation comparison" loading="lazy">
+                <p class="subfigure-caption">(b) Distance variation</p>
               </div>
               <div class="figure-card">
-                <img src="./figs/ours_twa_mst_snapshot.png" alt="Our TWA-MST snapshot" loading="lazy">
-                <p class="subfigure-caption">(c) Ours (TWA-MST + adaptive PT-CBF)</p>
-              </div>
-              <div class="figure-card">
-                <img src="./figs/random_snapshot.png" alt="Random spanning-tree baseline snapshot" loading="lazy">
-                <p class="subfigure-caption">(d) Random spanning-tree baseline</p>
-              </div>
-              <div class="figure-card">
-                <img src="./figs/tsmst_snapshot.png" alt="TSMST baseline snapshot" loading="lazy">
-                <p class="subfigure-caption">(e) TSMST baseline</p>
+                <img src="./figs/quantitative_avg_iter_time.png" alt="Average iteration time comparison" loading="lazy">
+                <p class="subfigure-caption">(c) Average iteration time</p>
               </div>
             </div>
             <figcaption>
-              Qualitative comparison in corridor-map experiments. Our method keeps coordinated progress while enforcing
-              scheduled reconnections.
+              Quantitative performance trends versus the number of robots.
             </figcaption>
           </figure>
         </div>
