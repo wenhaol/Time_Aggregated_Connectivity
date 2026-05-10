@@ -365,22 +365,6 @@ mjx-container {
   scroll-margin-top: 2rem;
 }
 
-.institution-funding-wrap {
-  width: 100%;
-  margin-top: 0.5rem;
-  margin-bottom: 0.35rem;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.institution-logo-only {
-  width: 44px;
-  height: 44px;
-  max-width: 44px;
-  flex: 0 0 44px;
-  object-fit: contain;
-}
-
 @media screen and (max-width: 1023px) {
   .figure-grid.is-3,
   .figure-grid.is-4 {
@@ -415,10 +399,4 @@ mjx-container {
     max-height: 300px;
   }
 
-  .institution-logo-only {
-    width: 38px;
-    height: 38px;
-    max-width: 38px;
-    flex-basis: 38px;
-  }
 }
