@@ -89,6 +89,15 @@ mjx-container {
 .publication-authors {
 }
 
+.funding-note {
+  margin-top: 0.55rem;
+  margin-bottom: 0.25rem;
+  color: #4b5563;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
 .publication-authors a {
    color: hsl(204, 86%, 53%) !important;
 }
