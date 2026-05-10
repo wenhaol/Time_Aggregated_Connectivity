@@ -123,7 +123,9 @@
           <p>
             Connectivity maintenance is critical for networked robot teams to exchange information and coordinate actions,
             yet enforcing persistent global connectivity can be unnecessarily restrictive when communication ranges are
-            limited and teams operate at scale. This work introduces a motion-coordination framework that maintains
+            limited and teams operate at scale. A dual-layer communication model preserves long-range coordination exchange
+            while short-range links are re-established intermittently to guarantee time-aggregated connectivity. This work
+            introduces a motion-coordination framework that maintains
             <strong>time-aggregated connectivity</strong>, allowing temporary disconnections while ensuring information can still
             flow across the team over each time window. The framework combines (1) a time-window aggregated minimum
             spanning tree (TWA-MST) for selecting low-effort reconnection edges and (2) adaptive prescribed-time control
@@ -152,10 +154,6 @@
         <li>
           <strong>Adaptive PT-CBF controller:</strong> once an edge is triggered, adapt the prescribed-time barrier parameters online
           so reconnection remains feasible and timely while reducing unnecessary control deviation.
-        </li>
-        <li>
-          <strong>Dual-layer communication model:</strong> long-range links preserve coordination exchange, while short-range links
-          are re-established intermittently to guarantee time-aggregated connectivity.
         </li>
       </ol>
     </div>
