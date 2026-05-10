@@ -316,11 +316,12 @@ mjx-container {
 .comparison-video {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: auto;
+  aspect-ratio: auto;
   border: 1px solid #d7dee7;
   border-radius: 10px;
   background: #000;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .comparison-video::-webkit-media-controls {
@@ -334,11 +335,12 @@ mjx-container {
 .paper-video {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: auto;
+  aspect-ratio: auto;
   border: 1px solid #d7dee7;
   border-radius: 10px;
   background: #000;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .video-caption {
