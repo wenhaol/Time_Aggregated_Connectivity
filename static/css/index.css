@@ -355,46 +355,14 @@ mjx-container {
 
 .institution-funding-wrap {
   margin-top: 1.25rem;
-}
-
-.logo-row {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 1.25rem;
-  flex-wrap: wrap;
-  margin-bottom: 0.7rem;
 }
 
-.logo-item {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  padding: 0.35rem 0.8rem;
-  border: 1px solid #e5e7eb;
-  border-radius: 999px;
-  background: #ffffff;
-}
-
-.logo-item img {
-  width: 34px;
-  height: 34px;
+.institution-logo-only {
+  width: 72px;
+  height: 72px;
   object-fit: contain;
-}
-
-.logo-item p {
-  margin: 0;
-  color: #2f3a4a;
-  font-size: 0.9rem;
-  line-height: 1.2;
-  font-weight: 600;
-}
-
-.funding-ack {
-  margin: 0;
-  font-size: 0.95rem;
-  color: #4b5563;
-  line-height: 1.55;
 }
 
 @media screen and (max-width: 1023px) {
@@ -423,9 +391,8 @@ mjx-container {
     grid-template-columns: 1fr;
   }
 
-  .logo-item {
-    width: 100%;
-    justify-content: center;
-    border-radius: 10px;
+  .institution-logo-only {
+    width: 64px;
+    height: 64px;
   }
 }
