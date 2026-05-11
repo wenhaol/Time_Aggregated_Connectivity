@@ -399,21 +399,16 @@ mjx-container {
   text-align: center;
 }
 
-.nsf-logo-slot {
-  align-self: stretch;
-}
-
-.nsf-logo-panel {
-  width: 100%;
-  min-height: 220px;
+.nsf-logo-row {
+  margin-top: 0.9rem;
+  margin-bottom: 0.2rem;
   display: flex;
-  align-items: center;
   justify-content: center;
 }
 
 .nsf-logo-image {
   width: auto;
-  height: 120px;
+  height: 110px;
   object-fit: contain;
 }
 
@@ -455,12 +450,8 @@ mjx-container {
     max-height: 300px;
   }
 
-  .nsf-logo-panel {
-    min-height: 180px;
-  }
-
   .nsf-logo-image {
-    height: 92px;
+    height: 88px;
   }
 
   .school-logo {
