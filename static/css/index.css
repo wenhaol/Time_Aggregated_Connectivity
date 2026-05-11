@@ -98,6 +98,35 @@ mjx-container {
   text-align: center;
 }
 
+.school-logo-row {
+  margin-top: 0.5rem;
+  margin-bottom: 0.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.school-logo {
+  display: block;
+  width: auto;
+  height: 42px;
+  object-fit: contain;
+}
+
+.school-logo-uic {
+  height: 38px;
+}
+
+.school-logo-uncc {
+  height: 44px;
+}
+
+.school-logo-tamu {
+  height: 42px;
+}
+
 .publication-authors a {
    color: hsl(204, 86%, 53%) !important;
 }
@@ -406,6 +435,22 @@ mjx-container {
 
   .paper-video {
     max-height: 300px;
+  }
+
+  .school-logo {
+    height: 34px;
+  }
+
+  .school-logo-uic {
+    height: 30px;
+  }
+
+  .school-logo-uncc {
+    height: 36px;
+  }
+
+  .school-logo-tamu {
+    height: 34px;
   }
 
 }
