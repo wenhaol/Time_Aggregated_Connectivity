@@ -111,20 +111,20 @@ mjx-container {
 .school-logo {
   display: block;
   width: auto;
-  height: 60px;
+  height: 74px;
   object-fit: contain;
 }
 
 .school-logo-uic {
-  height: 56px;
+  height: 68px;
 }
 
 .school-logo-uncc {
-  height: 72px;
+  height: 88px;
 }
 
 .school-logo-tamu {
-  height: 68px;
+  height: 82px;
 }
 
 .publication-authors a {
@@ -455,19 +455,19 @@ mjx-container {
   }
 
   .school-logo {
-    height: 44px;
+    height: 54px;
   }
 
   .school-logo-uic {
-    height: 40px;
+    height: 50px;
   }
 
   .school-logo-uncc {
-    height: 52px;
+    height: 64px;
   }
 
   .school-logo-tamu {
-    height: 48px;
+    height: 60px;
   }
 
 }
