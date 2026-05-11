@@ -400,10 +400,14 @@ mjx-container {
 }
 
 .nsf-logo-row {
+  width: 100%;
+  max-width: 1112px;
   margin-top: 0.9rem;
   margin-bottom: 0.2rem;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .nsf-logo-image {
