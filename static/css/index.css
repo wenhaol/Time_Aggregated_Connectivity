@@ -104,27 +104,27 @@ mjx-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 1.15rem;
   flex-wrap: wrap;
 }
 
 .school-logo {
   display: block;
   width: auto;
-  height: 42px;
+  height: 60px;
   object-fit: contain;
 }
 
 .school-logo-uic {
-  height: 38px;
+  height: 56px;
 }
 
 .school-logo-uncc {
-  height: 44px;
+  height: 72px;
 }
 
 .school-logo-tamu {
-  height: 42px;
+  height: 68px;
 }
 
 .publication-authors a {
@@ -464,19 +464,19 @@ mjx-container {
   }
 
   .school-logo {
-    height: 34px;
+    height: 44px;
   }
 
   .school-logo-uic {
-    height: 30px;
+    height: 40px;
   }
 
   .school-logo-uncc {
-    height: 36px;
+    height: 52px;
   }
 
   .school-logo-tamu {
-    height: 34px;
+    height: 48px;
   }
 
 }
