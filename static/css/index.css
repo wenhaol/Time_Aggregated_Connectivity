@@ -345,6 +345,14 @@ mjx-container {
   margin-right: auto;
 }
 
+.corridor-top-row {
+  margin-bottom: 1rem;
+}
+
+.corridor-bottom-row {
+  margin-top: 0;
+}
+
 .video-group {
   display: flex;
   flex-direction: column;
