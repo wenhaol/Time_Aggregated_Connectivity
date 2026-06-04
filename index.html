@@ -26,7 +26,7 @@
   <script>
     window.MathJax = {
       tex: {
-        inlineMath: {'[+]': [['$', '$']]},
+        inlineMath: [['$','$'], ['\\(','\\)']],
       },
       output: {
         font: 'mathjax-termes'
@@ -49,8 +49,8 @@
     <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
       <a class="navbar-item" href="#abstract">Abstract</a>
       <a class="navbar-item" href="#method">Method</a>
-      <a class="navbar-item" href="#results">Results</a>
       <a class="navbar-item" href="#videos">Videos</a>
+      <a class="navbar-item" href="#more-research">More Research</a>
       <a class="navbar-item" href="#bibtex">BibTeX</a>
     </div>
   </div>
@@ -72,8 +72,11 @@
 
           <div class="is-size-6 publication-authors">
             <span class="author-block"><sup>1</sup> Department of Computer Science, University of Illinois Chicago</span><br>
+            <span class="author-block">Email: {hliu232,yzhan361,wenhao}@uic.edu</span><br>
             <span class="author-block"><sup>2</sup> Department of Computer Science, University of North Carolina at Charlotte</span><br>
-            <span class="author-block"><sup>3</sup> Department of Computer Science and Engineering, Texas A&amp;M University</span>
+            <span class="author-block">Email: yyang52@charlotte.edu</span><br>
+            <span class="author-block"><sup>3</sup> Department of Computer Science and Engineering, Texas A&amp;M University</span><br>
+            <span class="author-block">Email: yiweilyu@tamu.edu</span>
           </div>
 
           <div class="school-logo-row">
@@ -82,12 +85,12 @@
             <img class="school-logo school-logo-tamu" src="./static/images/tamu-logo.svg" alt="Texas A&amp;M University logo" loading="lazy">
           </div>
 
-          <p class="funding-note"><sup>*</sup>This work was supported in part by the U.S. National Science Foundation (NSF) under Grant CMMI-2301749 and Award 2528997.</p>
+          <p class="funding-note"><sup>*</sup>This work was supported in part by the U.S. National Science Foundation under Grant CMMI-2528997.</p>
 
           <div class="column has-text-centered">
             <div class="publication-links">
               <span class="link-block">
-                <a href="./RSS_2026_Time_Aggregated_Connectivity_Maintenance.pdf" class="external-link button is-normal is-rounded is-dark">
+                <a href="./RSS_2026_Minimum_Effort_ST_Connectivity.pdf" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
                   </span>
@@ -95,19 +98,11 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="#results" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-chart-line"></i>
-                  </span>
-                  <span>Results</span>
-                  </a>
-              </span>
-              <span class="link-block">
                 <a href="#videos" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-video"></i>
                   </span>
-                  <span>Supplementary Videos</span>
+                  <span>Videos</span>
                 </a>
               </span>
             </div>
@@ -120,21 +115,25 @@
 
 <section class="section" id="abstract">
   <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <figure class="paper-figure paper-figure-medium">
+            <div class="single-figure-frame">
+              <img src="./figs/rss.png" alt="Overview of time-aggregated connectivity maintenance" loading="lazy">
+            </div>
+            <figcaption>
+              Fig. 1. Illustration of proposed time-aggregated connectivity, where robots may temporarily disconnect while
+              achieving global connectivity through union of graph formed by selected reconnected edges over task-prescribed
+              time window \(T_{\mathrm{w}}\).
+            </figcaption>
+          </figure>
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Connectivity maintenance is critical for networked robot teams to exchange information and coordinate actions,
-            yet enforcing persistent global connectivity can be unnecessarily restrictive when communication ranges are
-            limited and teams operate at scale. A dual-layer communication model preserves long-range coordination exchange
-            while short-range links are re-established intermittently to guarantee time-aggregated connectivity. This work
-            introduces a motion-coordination framework that maintains
-            <strong>time-aggregated connectivity</strong>, allowing temporary disconnections while ensuring information can still
-            flow across the team over each time window. The framework combines (1) a time-window aggregated minimum
-            spanning tree (TWA-MST) for selecting low-effort reconnection edges and (2) adaptive prescribed-time control
-            barrier functions (adaptive PT-CBF) for guaranteed and timely pairwise reconnection. Both analysis and
-            experiments show improved task efficiency with reliable connectivity recovery.
+            Traditionally, connectivity maintenance for mobile robot teams enforces persistent global connectivity at every instant to guarantee information flow. While effective, this requirement can be overly restrictive when communication ranges are limited and robots must spread out to simultaneously perform different mobility tasks. In many scenarios, robots do not need to remain continuously connected at all times. Instead, they may temporarily disconnect as long as the required communication links are re-established within prescribed time windows, allowing team-wide information to propagate over time.
+          </p>
+          <p>
+            Motivated by this, we introduce a time-aggregated connectivity maintenance framework, which allows temporary disconnections while preserving team-wide information exchange over each time window, as shown in Fig. 1. The proposed framework combines a time-window aggregated minimum spanning tree (<strong>TWA-MST</strong>) to select low-effort reconnection edges and adaptive prescribed-time control barrier functions (<strong>adaptive PT-CBFs</strong>) to guarantee timely pairwise reconnection. Simulation examples with two-robot and multi-robot teams demonstrate that the proposed method enables robots to separate for task execution and subsequently re-establish the required communication links within task-prescribed time windows.
           </p>
         </div>
       </div>
@@ -147,13 +146,11 @@
     <h2 class="title is-3 has-text-centered">Method Overview</h2>
     <div class="content">
       <p>
-        The approach is implemented as a coordination layer on top of robots' nominal trajectories. It intervenes only when
-        reconnection is needed, so robots can follow their task plans with minimum additional effort.
+        The approach is implemented as a coordination layer on top of robots' nominal trajectories, e.g., those generated by multi-agent path finding algorithms (MAPF) for some primary tasks. It intervenes by selectively reconfiguring corresponding robots' motions only when reconnection is needed, so robots can follow their task plans with low additional effort.
       </p>
       <ol>
         <li>
-          <strong>TWA-MST scheduler:</strong> for each candidate robot pair, aggregate predicted edge cost over a finite window,
-          then choose a sparse set of reconnection edges with low total effort.
+          <strong>TWA-MST scheduler:</strong> for each candidate robot pair, aggregate predicted edge reconnection cost over a finite window given nominal trajectories, then choose a sparse set of reconnection edges and timing for low total control effort.
         </li>
         <li>
           <strong>Adaptive PT-CBF controller:</strong> once an edge is triggered, adapt the prescribed-time barrier parameters online
@@ -164,61 +161,31 @@
   </div>
 </section>
 
-<section class="section" id="results">
+<section class="section" id="examples">
   <div class="container is-max-widescreen">
     <div class="columns is-centered">
       <div class="column is-full">
-        <h2 class="title is-3 has-text-centered">Quantitative Results</h2>
+        <h2 class="title is-3 has-text-centered">Videos</h2>
         <div class="content">
           <p>
-            Quantitative comparisons across team sizes using three metrics: average trajectory deviation, total distance
-            variation, and average iteration time.
+            In all videos, circle markers (<span class="video-marker video-marker-circle">&#9679;</span>) indicate robot positions,
+            star markers (<span class="video-marker video-marker-star">&#9733;</span>) indicate assigned goals,
+            colored curves show trajectories, and labels (0-7) denote robot IDs.
           </p>
-
-          <figure class="paper-figure">
-            <div class="figure-grid is-3 quantitative-grid">
-              <div class="figure-card">
-                <img src="./figs/quantitative_avg_dev_compare.png" alt="Average trajectory deviation comparison" loading="lazy">
-                <p class="subfigure-caption">(a) Average trajectory deviation</p>
-              </div>
-              <div class="figure-card">
-                <img src="./figs/quantitative_distance_delta_compare.png" alt="Distance variation comparison" loading="lazy">
-                <p class="subfigure-caption">(b) Distance variation</p>
-              </div>
-              <div class="figure-card">
-                <img src="./figs/quantitative_avg_iter_time.png" alt="Average iteration time comparison" loading="lazy">
-                <p class="subfigure-caption">(c) Average iteration time</p>
-              </div>
-            </div>
-            <figcaption>
-              Quantitative performance trends versus the number of robots.
-            </figcaption>
-          </figure>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="videos">
-  <div class="container is-max-widescreen">
-    <div class="columns is-centered">
-      <div class="column is-full">
-        <h2 class="title is-3 has-text-centered">Supplementary Videos</h2>
-        <div class="content">
-          <h3 class="title is-4">Two-Robot Reconnection Comparison</h3>
+          <h3 class="title is-4">Two-Robot Reconnection Comparison.</h3>
           <p>
-            Same trigger schedule with different controllers. Adaptive PT-CBF reconnects reliably with less manual
-            prescribed-time tuning.
+            <strong>Scenario:</strong> Two robots move from their initial positions to assigned goals under a short-range communication radius (\(R_{\mathrm{c}} = 3~\mathrm{m}\)). A reconnection event is triggered at the beginning of the trial, meaning that the required pairwise communication link must be re-established during motion. We compare the adaptive prescribed-time control barrier function (Adaptive PT-CBF), against prescribed-time control barrier function (<a href="https://ieeexplore.ieee.org/abstract/document/10288378" target="_blank" rel="noopener">PT-CBF</a> with \(T_{\mathrm{p}} = 3~\mathrm{s}\) and \(T_{\mathrm{p}} = 15~\mathrm{s}\)), and a finite-time control barrier function (<a href="https://ieeexplore.ieee.org/document/8594302" target="_blank" rel="noopener">FT-CBF</a>) under the same trigger schedule and communication radius. Here, \(T_{\mathrm{p}}\) denotes the pre-defined reconnection deadline (required parameter for PT-CBF)
+            <br><strong>Results:</strong> <strong>our Adaptive PT-CBF</strong> reaches both goals with successful reconnection in a shorter run
+            (\(t \approx 28.57~\mathrm{s}\)) without manual \(T_{\mathrm{p}}\) tuning beforehand.
           </p>
-          <div class="video-grid video-grid-2x2">
+          <div class="video-grid video-grid-2x2 two-robot-grid">
             <div class="video-group">
               <div class="video-panel">
                 <video class="paper-video" controls autoplay muted playsinline preload="metadata">
                   <source src="./videos/adaptive_ptcbf.mp4" type="video/mp4">
                 </video>
               </div>
-              <p class="video-caption">(a) Adaptive PT-CBF</p>
+              <p class="video-caption">(a) <strong>Adaptive PT-CBF</strong> (end time \(t = 28.57~\mathrm{s}\))</p>
             </div>
             <div class="video-group">
               <div class="video-panel">
@@ -226,7 +193,7 @@
                   <source src="./videos/ptcbf_tp3.mp4" type="video/mp4">
                 </video>
               </div>
-              <p class="video-caption">(b) PT-CBF (\(T_p = 3~\mathrm{s}\))</p>
+              <p class="video-caption">(b) PT-CBF (\(T_{\mathrm{p}} = 3~\mathrm{s}\), end time \(t = 49.90~\mathrm{s}\))</p>
             </div>
             <div class="video-group">
               <div class="video-panel">
@@ -234,7 +201,7 @@
                   <source src="./videos/ptcbf_tp15.mp4" type="video/mp4">
                 </video>
               </div>
-              <p class="video-caption">(c) PT-CBF (\(T_p = 15~\mathrm{s}\))</p>
+              <p class="video-caption">(c) PT-CBF (\(T_{\mathrm{p}} = 15~\mathrm{s}\), end time \(t = 30.72~\mathrm{s}\))</p>
             </div>
             <div class="video-group">
               <div class="video-panel">
@@ -242,13 +209,15 @@
                   <source src="./videos/ftcbf.mp4" type="video/mp4">
                 </video>
               </div>
-              <p class="video-caption">(d) FT-CBF</p>
+              <p class="video-caption">(d) FT-CBF (end time \(t = 35.07~\mathrm{s}\))</p>
             </div>
           </div>
 
-          <h3 class="title is-4">Large-Scale Corridor Case (\(N = 8\))</h3>
+          <h3 class="title is-4">Corridor Reconnection Case.</h3>
           <p>
-            Side-by-side comparisons for nominal planning and tree-selection baselines.
+            <strong>Scenario:</strong> Eight robots navigate through cluttered corridors toward their assigned goals while maintaining time-aggregated information flow for the whole team.. We use trajectories generated by multi-agent path finding (MAPF) as the nominal task plan and compare different reconnection scheduling strategies: the proposed <strong>time-window aggregated minimum spanning tree (TWA-MST)</strong>, minimum connectivity constraint spanning tree (MCCST), time-sub-interval minimum spanning tree (TSMST), and Random MST. MCCST enforces persistent global connectivity throughout execution. TSMST selects the minimum-cost MST at one sampled instant within each fixed sub-interval, with all selected edges coming from that same instant. Random MST randomly selects a spanning-tree topology and then chooses its minimum-cost feasible instant.<br><strong>Results:</strong>
+            <strong>TWA-MST</strong> reaches the assigned goals with a shorter completion horizon than MCCST, Random MST, and TSMST while
+            avoiding overly rigid always-connected motion.
           </p>
           <div class="video-grid video-grid-2x2 corridor-top-row">
             <div class="video-group">
@@ -257,7 +226,7 @@
                   <source src="./videos/mapf_actual.mp4" type="video/mp4">
                 </video>
               </div>
-              <p class="video-caption">(a) MAPF nominal plan</p>
+              <p class="video-caption">(a) MAPF nominal plan (reference without reconnection control, end time \(t = 48.30~\mathrm{s}\))</p>
             </div>
             <div class="video-group">
               <div class="video-panel">
@@ -265,17 +234,17 @@
                   <source src="./videos/ours_twa_mst_actual.mp4" type="video/mp4">
                 </video>
               </div>
-              <p class="video-caption">(c) Ours (TWA-MST)</p>
+              <p class="video-caption">(c) <strong>our method</strong> (<strong>TWA-MST</strong>, end time \(t = 50.16~\mathrm{s}\))</p>
             </div>
           </div>
           <div class="video-grid corridor-bottom-row">
             <div class="video-group">
               <div class="video-panel">
-                <video class="paper-video" controls autoplay muted playsinline preload="metadata">
+                <video class="paper-video" controls autoplay muted playsinline preload="metadata" data-stop-at="60">
                   <source src="./videos/mccst_actual.mp4" type="video/mp4">
                 </video>
               </div>
-              <p class="video-caption">(b) MCCST</p>
+              <p class="video-caption">(b) MCCST (maintains persistent global connectivity through minimum connectivity constraint spanning tree, failing to reach the goal)</p>
             </div>
             <div class="video-group">
               <div class="video-panel">
@@ -283,7 +252,7 @@
                   <source src="./videos/random_actual.mp4" type="video/mp4">
                 </video>
               </div>
-              <p class="video-caption">(d) Random spanning tree</p>
+              <p class="video-caption">(d) Random spanning tree (randomly selects one spanning-tree topology and uses its minimum-cost instant, end time \(t = 68.96~\mathrm{s}\))</p>
             </div>
             <div class="video-group">
               <div class="video-panel">
@@ -291,14 +260,83 @@
                   <source src="./videos/tsmst_actual.mp4" type="video/mp4">
                 </video>
               </div>
-              <p class="video-caption">(e) TSMST</p>
+              <p class="video-caption">(e) TSMST (minimum-cost MST at one instant per fixed sub-interval; all selected edges are from that same instant, end time \(t = 55.61~\mathrm{s}\))</p>
             </div>
-          </div>
-          <div class="nsf-logo-row">
-            <img class="nsf-logo-image" src="./static/images/nsf-logo.svg" alt="U.S. National Science Foundation logo" loading="lazy">
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="more-research">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">More Research</h2>
+    <div class="content has-text-centered">
+      <p>
+        Explore more papers from our lab through the following research pages.
+      </p>
+    </div>
+    <div class="columns is-multiline">
+      <div class="column is-12-mobile is-6-tablet">
+        <div class="box research-card">
+          <p class="title is-5">Spatio-Temporal Reconnection for Multi-Robot Networks using Adaptive Prescribed-Time CBFs</p>
+          <p class="subtitle is-6">Hao Liu, Yupeng Yang, Yanze Zhang, Wenhao Luo<br><br>IFAC World Congress, 2026</p>
+          <div class="buttons are-small research-actions">
+            <a class="button is-link is-light" href="https://arxiv.org/abs/2606.01526" target="_blank" rel="noopener">Paper</a>
+          </div>
+        </div>
+      </div>
+      <div class="column is-12-mobile is-6-tablet">
+        <div class="box research-card">
+          <p class="title is-5">Integrating Online Learning and Connectivity Maintenance for Communication-Aware Multi-Robot Coordination</p>
+          <p class="subtitle is-6">Yupeng Yang, Yiwei Lyu, Yanze Zhang, Ian Gao, and Wenhao Luo<br><br>IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2024</p>
+          <div class="buttons are-small research-actions">
+            <a class="button is-link is-light" href="https://ieeexplore.ieee.org/abstract/document/10802189" target="_blank" rel="noopener">Paper</a>
+          </div>
+        </div>
+      </div>
+      <div class="column is-12-mobile is-6-tablet">
+        <div class="box research-card">
+          <p class="title is-5">Decentralized Multi-Robot Line-of-Sight Connectivity Maintenance under Uncertainty</p>
+          <p class="subtitle is-6">Yupeng Yang, Yiwei Lyu, Yanze Zhang, Sha Yi and Wenhao Luo<br><br>Robotics: Science and Systems (RSS), 2024</p>
+          <div class="buttons are-small research-actions">
+            <a class="button is-link is-light" href="https://www.youtube.com/watch?v=kRQoEh3hgXE" target="_blank" rel="noopener">YouTube</a>
+            <a class="button is-link is-light" href="https://roboticsconference.org/program/papers/5/" target="_blank" rel="noopener">Paper</a>
+          </div>
+        </div>
+      </div>
+      <div class="column is-12-mobile is-6-tablet">
+        <div class="box research-card">
+          <p class="title is-5">Minimally Constrained Multi-Robot Coordination with Line-of-sight Connectivity Maintenance</p>
+          <p class="subtitle is-6">Yupeng Yang, Yiwei Lyu, and Wenhao Luo<br><br>IEEE International Conference on Robotics and Automation (ICRA), 2023</p>
+          <div class="buttons are-small research-actions">
+            <a class="button is-link is-light" href="https://youtu.be/ZvR8fDGSqMo?si=rvIaVI_Zc9-Z--yu" target="_blank" rel="noopener">YouTube</a>
+            <a class="button is-link is-light" href="https://arxiv.org/pdf/2303.04271" target="_blank" rel="noopener">Paper</a>
+          </div>
+        </div>
+      </div>
+      <!--
+      <div class="column is-12-mobile is-6-tablet">
+        <div class="box research-card">
+          <p class="title is-5">Courteous MPC for Autonomous Driving with CBF-inspired Risk Assessment</p>
+          <p class="subtitle is-6">Yanze Zhang, Yiwei Lyu, Sude E. Demir, Xingyu Zhou, Yupeng Yang, Junming Wang, Wenhao Luo<br><br>IEEE International Conference on Intelligent Transportation Systems (ITSC), 2024</p>
+          <div class="buttons are-small research-actions">
+            <a class="button is-link is-light" href="https://www.youtube.com/watch?v=9Cekw5xafWw" target="_blank" rel="noopener">YouTube</a>
+            <a class="button is-link is-light" href="https://arxiv.org/abs/2408.12822v1" target="_blank" rel="noopener">Paper</a>
+          </div>
+        </div>
+      </div>
+      <div class="column is-12-mobile is-6-tablet">
+        <div class="box research-card">
+          <p class="title is-5">Adaptive Deadlock Avoidance for Decentralized Multi-Agent Systems via CBF-inspired Risk Measurement</p>
+          <p class="subtitle is-6">Yanze Zhang, Yiwei Lyu, Siwon Jo, Yupeng Yang, Wenhao Luo<br><br>IEEE International Conference on Robotics and Automation (ICRA), 2025</p>
+          <div class="buttons are-small research-actions">
+            <a class="button is-link is-light" href="https://arxiv.org/abs/2503.09621" target="_blank" rel="noopener">Paper</a>
+          </div>
+        </div>
+      </div>
+      -->
     </div>
   </div>
 </section>
@@ -330,6 +368,10 @@
     </div>
   </div>
 </footer>
+
+<div class="nsf-logo-row">
+  <img class="nsf-logo-image" src="./static/images/nsf-logo.svg" alt="U.S. National Science Foundation logo" loading="lazy">
+</div>
 
 <script defer src="./static/js/bulma-carousel.min.js"></script>
 <script defer src="./static/js/bulma-slider.min.js"></script>

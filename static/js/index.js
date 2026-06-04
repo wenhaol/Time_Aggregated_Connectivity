@@ -25,91 +25,109 @@ function setInterpolationImage(i) {
 }
 
 function initializeComparisonVideos() {
-  var videos = Array.from(document.querySelectorAll('.paper-video, .comparison-video'));
-  if (!videos.length) {
+  var grids = Array.from(document.querySelectorAll('.video-grid'));
+  if (!grids.length) {
     return;
   }
-
-  var readyVideos = new Set();
-  var completedVideos = new Set();
-  var hasStarted = false;
-  var isRestarting = false;
-
-  function playVideo(video) {
-    var promise = video.play();
-    if (promise && typeof promise.catch === 'function') {
-      promise.catch(function() {});
+  grids.forEach(function(grid) {
+    var videos = Array.from(grid.querySelectorAll('.paper-video, .comparison-video'));
+    if (!videos.length) {
+      return;
     }
-  }
 
-  function restartCycle() {
-    completedVideos.clear();
-    isRestarting = false;
+    var readyVideos = new Set();
+    var completedVideos = new Set();
+    var hasStarted = false;
+    var isRestarting = false;
+
+    function playVideo(video) {
+      var promise = video.play();
+      if (promise && typeof promise.catch === 'function') {
+        promise.catch(function() {});
+      }
+    }
+
+    function restartCycle() {
+      completedVideos.clear();
+      isRestarting = false;
+
+      videos.forEach(function(video) {
+        video.pause();
+        video.currentTime = 0;
+      });
+
+      requestAnimationFrame(function() {
+        videos.forEach(playVideo);
+      });
+    }
+
+    function getStopAt(video, duration) {
+      var stopAt = parseFloat(video.dataset.stopAt || '');
+      if (Number.isFinite(stopAt) && stopAt > 0 && stopAt < duration) {
+        return stopAt;
+      }
+      return duration;
+    }
+
+    function maybeCompleteCycle(video) {
+      if (completedVideos.has(video)) {
+        return;
+      }
+
+      var duration = video.duration;
+      if (!Number.isFinite(duration) || duration <= 0) {
+        return;
+      }
+
+      var stopAt = getStopAt(video, duration);
+      if (video.currentTime >= stopAt - 0.12 || video.ended) {
+        completedVideos.add(video);
+        video.pause();
+        if (video.currentTime > stopAt) {
+          video.currentTime = stopAt;
+        }
+
+        if (completedVideos.size === videos.length && !isRestarting) {
+          isRestarting = true;
+          window.setTimeout(restartCycle, 120);
+        }
+      }
+    }
 
     videos.forEach(function(video) {
-      video.pause();
-      video.currentTime = 0;
-    });
+      video.muted = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      video.loop = false;
 
-    requestAnimationFrame(function() {
-      videos.forEach(playVideo);
-    });
-  }
+      var onReady = function() {
+        readyVideos.add(video);
+        video.removeEventListener('loadeddata', onReady);
+        video.removeEventListener('canplay', onReady);
+        video.removeEventListener('loadedmetadata', onReady);
 
-  function maybeCompleteCycle(video) {
-    if (completedVideos.has(video)) {
-      return;
-    }
+        if (!hasStarted && readyVideos.size === videos.length) {
+          hasStarted = true;
+          restartCycle();
+        }
+      };
 
-    var duration = video.duration;
-    if (!Number.isFinite(duration) || duration <= 0) {
-      return;
-    }
+      video.addEventListener('loadeddata', onReady);
+      video.addEventListener('canplay', onReady);
+      video.addEventListener('loadedmetadata', onReady);
+      video.addEventListener('timeupdate', function() {
+        maybeCompleteCycle(video);
+      });
+      video.addEventListener('ended', function() {
+        maybeCompleteCycle(video);
+      });
 
-    if (video.ended || duration - video.currentTime <= 0.12) {
-      completedVideos.add(video);
-      video.pause();
-
-      if (completedVideos.size === videos.length && !isRestarting) {
-        isRestarting = true;
-        window.setTimeout(restartCycle, 120);
+      if (video.readyState >= 1) {
+        onReady();
+      } else {
+        video.load();
       }
-    }
-  }
-
-  videos.forEach(function(video) {
-    video.muted = true;
-    video.autoplay = true;
-    video.playsInline = true;
-    video.loop = false;
-
-    var onReady = function() {
-      readyVideos.add(video);
-      video.removeEventListener('loadeddata', onReady);
-      video.removeEventListener('canplay', onReady);
-      video.removeEventListener('loadedmetadata', onReady);
-
-      if (!hasStarted && readyVideos.size === videos.length) {
-        hasStarted = true;
-        restartCycle();
-      }
-    };
-
-    video.addEventListener('loadeddata', onReady);
-    video.addEventListener('canplay', onReady);
-    video.addEventListener('loadedmetadata', onReady);
-    video.addEventListener('timeupdate', function() {
-      maybeCompleteCycle(video);
     });
-    video.addEventListener('ended', function() {
-      maybeCompleteCycle(video);
-    });
-
-    if (video.readyState >= 1) {
-      onReady();
-    } else {
-      video.load();
-    }
   });
 }
 

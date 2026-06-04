@@ -120,11 +120,11 @@ mjx-container {
 }
 
 .school-logo-uncc {
-  height: 88px;
+  height: 64px;
 }
 
 .school-logo-tamu {
-  height: 82px;
+  height: 74px;
 }
 
 .publication-authors a {
@@ -292,7 +292,7 @@ mjx-container {
 }
 
 .single-figure-frame {
-  width: 30em;
+  width: 56rem;
   max-width: 100%;
   margin: 0 auto;
   padding: 0;
@@ -343,6 +343,19 @@ mjx-container {
   max-width: 360px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.two-robot-grid {
+  max-width: 780px;
+}
+
+.two-robot-grid .video-group {
+  max-width: 360px;
+}
+
+.two-robot-grid .paper-video {
+  width: 100%;
+  max-height: 360px;
 }
 
 .corridor-top-row {
@@ -399,6 +412,17 @@ mjx-container {
   object-fit: contain;
 }
 
+.video-marker {
+  color: #1f78ff;
+  font-weight: 700;
+  -webkit-text-stroke: 0.85px #000;
+  text-shadow:
+    -0.65px 0 #000,
+    0.65px 0 #000,
+    0 -0.65px #000,
+    0 0.65px #000;
+}
+
 .video-caption {
   margin-top: 0;
   color: #334155;
@@ -426,6 +450,70 @@ mjx-container {
 
 .section-anchor {
   scroll-margin-top: 2rem;
+}
+
+#more-research .content p {
+  max-width: 56rem;
+  margin: 0 auto 0.75rem;
+  color: #4b5563;
+}
+
+.research-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 1.35rem 1.4rem;
+  border: 1px solid #dbe5f3;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.research-card:hover {
+  transform: translateY(-4px);
+  border-color: #b9cff3;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.1);
+}
+
+.research-card .title {
+  margin-bottom: 0.58rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: #1f2937;
+}
+
+.research-card .subtitle {
+  margin-bottom: 0;
+  line-height: 1.38;
+  color: #4b5563;
+}
+
+.research-actions {
+  margin-top: auto !important;
+  margin-bottom: 0 !important;
+  gap: 0.55rem;
+}
+
+.research-actions .button {
+  margin: 0 !important;
+  border-radius: 999px;
+  border: 1px solid #c7d7ee;
+  background: #edf3ff !important;
+  color: #1e4fa3 !important;
+  font-weight: 600;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.research-actions .button:hover {
+  transform: translateY(-1px);
+  background: #dfeaff !important;
+  border-color: #abc2e7;
+  color: #163e88 !important;
 }
 
 @media screen and (max-width: 1023px) {
@@ -475,11 +563,19 @@ mjx-container {
   }
 
   .school-logo-uncc {
-    height: 64px;
+    height: 44px;
   }
 
   .school-logo-tamu {
-    height: 60px;
+    height: 54px;
+  }
+
+  .research-card {
+    padding: 1.1rem 1rem;
+  }
+
+  .research-actions {
+    gap: 0.45rem;
   }
 
 }
